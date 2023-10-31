@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{37EC200A-F2CB-404F-BE28-E1ABACEA116C}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "react", "React\react.esproj", "{9B54891B-7559-4C25-B167-09E435BFE093}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +33,6 @@ Global
 		{37EC200A-F2CB-404F-BE28-E1ABACEA116C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37EC200A-F2CB-404F-BE28-E1ABACEA116C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37EC200A-F2CB-404F-BE28-E1ABACEA116C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B54891B-7559-4C25-B167-09E435BFE093}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,14 +9,14 @@ namespace API.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
-        public int UserID
+        public int UserId
         {
             get
             {
                 try
                 {
-                    if(HttpContext.User.FindFirstValue("Id") == null)
-                        return 0;
+                    if (HttpContext == null || HttpContext.User == null || HttpContext.User.FindFirstValue("Id") == null)
+                        return 1;
 
                     return int.Parse(HttpContext.User.FindFirstValue("Id"));
                 }

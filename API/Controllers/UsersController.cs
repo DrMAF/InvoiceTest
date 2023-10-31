@@ -168,12 +168,12 @@ namespace API.Controllers
         {
             try
             {
-                if (UserID == 0)
+                if (UserId == 0)
                 {
                     return Unauthorized();
                 }
 
-                _authenticationTokenService.Delete(tkn => tkn.UserId == UserID);
+                _authenticationTokenService.Delete(tkn => tkn.UserId == UserId);
 
                 HttpContext.Session.Clear();
 
@@ -197,7 +197,7 @@ namespace API.Controllers
                 //string userName = HttpContext.User.FindFirstValue("UserName");
                 //string name = HttpContext.User.FindFirstValue("Name");
 
-                return Ok(UserID);
+                return Ok(UserId);
             }
             catch (Exception ex)
             {

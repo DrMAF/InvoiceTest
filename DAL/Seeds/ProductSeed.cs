@@ -3,7 +3,7 @@ using Core.Domain;
 
 namespace DAL.Seeds
 {
-    internal class ProductsSeed
+    internal class ProductSeed
     {
         public static void Seed(ModelBuilder modelBuilder)
         {
@@ -13,7 +13,6 @@ namespace DAL.Seeds
                 Id = 1,
                 NameEn = "TV",
                 NameAr = "تليفزيون",
-                Price = 11000,
                 CreatorId = 1
             },
             new Product()
@@ -21,7 +20,6 @@ namespace DAL.Seeds
                 Id = 2,
                 NameEn = "Mobile",
                 NameAr = "محمول",
-                Price = 8000,
                 CreatorId = 1
             },
             new Product()
@@ -29,7 +27,20 @@ namespace DAL.Seeds
                 Id = 3,
                 NameEn = "Labtop",
                 NameAr = "جهاز حاسب",
-                Price = 25000,
+                CreatorId = 1
+            },
+            new Product()
+            {
+                Id = 4,
+                NameEn = "Network wire",
+                NameAr = "سلك شبكات",
+                CreatorId = 1
+            },
+            new Product()
+            {
+                Id = 5,
+                NameEn = "Nail",
+                NameAr = "مسمار",
                 CreatorId = 1
             });
         }
