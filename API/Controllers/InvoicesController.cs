@@ -35,7 +35,7 @@ namespace API.Controllers
             {
                 IEnumerable<Invoice> invoices;
                 List<InvoiceVM> invoicesVM = new List<InvoiceVM>();
-                List<string> includes = new List<string> { "InvoiceItems", "InvoiceItems.ProductUnit", "InvoiceItems.ProductUnit.Unit", "InvoiceItems.ProductUnit.Product" };
+                List<string> includes = new List<string> { "Store", "InvoiceItems", "InvoiceItems.ProductUnit", "InvoiceItems.ProductUnit.Unit", "InvoiceItems.ProductUnit.Product" };
 
                 if (id.HasValue && id.Value > 0)
                 {
@@ -53,6 +53,8 @@ namespace API.Controllers
                 invoicesVM = invoices.Select(inv => new InvoiceVM
                 {
                     Id = inv.Id,
+                    StoreId = inv.StoreId,
+                    StoreName = inv.Store?.NameAr,
                     TotalDiscount = inv.TotalDiscount,
                     Total = inv.Total,
                     TaxPercent = inv.TaxPercent,
@@ -84,12 +86,13 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("AddInvoice")]
-        public IActionResult GetProductUnits([FromBody]InvoiceVM model)
+        public IActionResult AddInvoice([FromBody] InvoiceVM model)
         {
             try
             {
                 var invoice = new Invoice
                 {
+                    StoreId = model.StoreId,
                     Date = model.Date,
                     TaxPercent = model.TaxPercent,
                     CreatorId = UserId
@@ -112,19 +115,19 @@ namespace API.Controllers
                             Price = item.Price,
                             Total = item.Quantity * item.Price,
                             Discount = item.Discount,
-                            Net = (item.Quantity * item.Price) - item.Discount
+                            Net = (item.Quantity * item.Price) - (item.Discount.HasValue ? item.Discount.Value : 0)
                         };
 
                         int invoiceItemId = _invoiceItemService.Add(invoiceItem);
 
                         totalDiscount += invoiceItem.Discount.HasValue ? invoiceItem.Discount.Value : 0;
-                        net += invoiceItem.Net.Value;
+                        net += invoiceItem.Net.HasValue ? invoiceItem.Net.Value : 0;
                     }
                 }
 
                 invoice.TotalDiscount = totalDiscount;
                 invoice.Total = net;
-                invoice.Net = ((invoice.TaxPercent /100) * invoice.Total) + invoice.Total;
+                invoice.Net = ((invoice.TaxPercent / 100) * invoice.Total) + invoice.Total;
 
                 _invoiceService.Update(invoice);
 

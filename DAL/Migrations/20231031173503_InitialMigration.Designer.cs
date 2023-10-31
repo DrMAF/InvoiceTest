@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(FinanceDbContext))]
-    [Migration("20231031043930_InitialMigration")]
+    [Migration("20231031173503_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -89,7 +89,7 @@ namespace DAL.Migrations
                     b.Property<int?>("CreatorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -113,6 +113,9 @@ namespace DAL.Migrations
                     b.Property<decimal?>("Net")
                         .HasColumnType("decimal(18, 4)");
 
+                    b.Property<int?>("StoreId")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("TaxPercent")
                         .HasColumnType("decimal(18, 4)");
 
@@ -125,6 +128,8 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Invoices");
                 });
@@ -235,7 +240,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4467),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3661),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -245,7 +250,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4469),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3663),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -255,7 +260,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4471),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3665),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -265,7 +270,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4473),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3667),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -275,7 +280,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4475),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3669),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -316,7 +321,7 @@ namespace DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18, 4)");
 
                     b.Property<int>("ProductId")
@@ -339,7 +344,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4498),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3688),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -352,7 +357,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4503),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3694),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -365,7 +370,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4506),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3696),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -378,7 +383,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4508),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3698),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -391,7 +396,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4510),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3701),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -404,7 +409,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4512),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3703),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -417,7 +422,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4514),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3705),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -474,7 +479,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4419),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3547),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -485,7 +490,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4425),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3586),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -537,7 +542,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4443),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3634),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -547,7 +552,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4446),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3637),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -557,7 +562,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4448),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3638),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -567,7 +572,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4450),
+                            CreatedAt = new DateTime(2023, 10, 31, 19, 35, 2, 994, DateTimeKind.Local).AddTicks(3640),
                             CreatorId = 1,
                             Description = "",
                             IsDeleted = false,
@@ -585,7 +590,6 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
@@ -595,16 +599,14 @@ namespace DAL.Migrations
                     b.Property<int?>("CreatorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -612,32 +614,26 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SaltKey")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SecondName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -651,17 +647,13 @@ namespace DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "",
-                            CreatedAt = new DateTime(2023, 10, 31, 6, 39, 30, 580, DateTimeKind.Local).AddTicks(4217),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatorId = 1,
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@mail.com",
                             FirstName = "Admin",
                             IsDeleted = false,
                             LastName = "admin",
-                            Password = "",
                             Phone = "1234",
-                            SaltKey = "",
                             SecondName = "",
                             UserName = "admin"
                         });
@@ -682,7 +674,13 @@ namespace DAL.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
+                    b.HasOne("Core.Domain.Store", "Store")
+                        .WithMany()
+                        .HasForeignKey("StoreId");
+
                     b.Navigation("Creator");
+
+                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("Core.Domain.InvoiceItem", b =>

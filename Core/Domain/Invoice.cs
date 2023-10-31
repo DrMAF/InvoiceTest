@@ -4,6 +4,8 @@ namespace Core.Domain
 {
     public class Invoice : BaseEntity
     {
+        [ForeignKey("Store")]
+        public int? StoreId { get; set; }
         public DateTime? Date {  get; set; }
         [Column(TypeName = "decimal(18, 4)")]
         public decimal? TotalDiscount { get; set; }
@@ -13,6 +15,7 @@ namespace Core.Domain
         public decimal? TaxPercent { get; set; }
         [Column(TypeName = "decimal(18, 4)")]
         public decimal? Net { get; set; }
-        public ICollection<InvoiceItem>? InvoiceItems { get; set; }
+        public virtual ICollection<InvoiceItem>? InvoiceItems { get; set; }
+        public virtual Store? Store { get; set; }
     }
 }

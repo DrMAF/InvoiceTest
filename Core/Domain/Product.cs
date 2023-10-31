@@ -2,6 +2,6 @@
 {
     public class Product : BaseEntity
     {
-        public ICollection<ProductUnit>? ProductUnits { get; set; }
+        public virtual ICollection<ProductUnit>? ProductUnits { get; set; }
     }
 }
