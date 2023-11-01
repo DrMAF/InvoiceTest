@@ -1,5 +1,5 @@
 ﻿using Core.Domain;
-using Core.ViewModels.Responses;
+using Core.ViewModels.Users;
 
 namespace Core.Interfaces.Services
 {

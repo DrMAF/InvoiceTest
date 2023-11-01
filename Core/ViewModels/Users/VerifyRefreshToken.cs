@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.ViewModels.Requests
+namespace Core.ViewModels.Users
 {
     public class VerifyRefreshToken
     {

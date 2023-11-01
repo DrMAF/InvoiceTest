@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Domain;
 using Core.Interfaces.Helpers;
 using Core.Interfaces.Services;
-using Core.ViewModels.Requests;
-using Core.ViewModels.Responses;
+using Core.ViewModels.Users;
+using Core.ViewModels;
 
 namespace API.Controllers
 {

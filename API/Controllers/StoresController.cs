@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Domain;
 using Core.Interfaces.Services;
+using Core.ViewModels.Invoices;
 
 namespace API.Controllers
 {
@@ -21,8 +22,14 @@ namespace API.Controllers
         public IActionResult GetStores()
         {
             try
-            {                
-                return Ok(_storeService.GetAll().ToList());
+            {
+                return Ok(_storeService.GetAll().Select(st =>
+                new StoreVM
+                {
+                    Id = st.Id,
+                    StoreName = st.NameAr,
+                    Location = st.Location
+                }).ToList());
             }
             catch (Exception ex)
             {

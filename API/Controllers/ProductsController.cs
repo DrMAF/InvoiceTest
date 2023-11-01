@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Domain;
 using Core.Interfaces.Services;
-using Core.ViewModels.Responses.Products;
+using Core.ViewModels.Products;
 
 namespace API.Controllers
 {

@@ -1,4 +1,4 @@
-﻿namespace Core.ViewModels.Responses
+﻿namespace Core.ViewModels.Users
 {
     public class AuthenticationResponse
     {

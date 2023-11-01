@@ -1,4 +1,4 @@
-﻿namespace Core.ViewModels.Responses.Invoices
+﻿namespace Core.ViewModels.Invoices
 {
     public class InvoiceItemVM
     {

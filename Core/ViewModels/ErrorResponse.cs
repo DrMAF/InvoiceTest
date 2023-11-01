@@ -1,4 +1,4 @@
-﻿namespace Core.ViewModels.Responses
+﻿namespace Core.ViewModels
 {
     public class ErrorResponse
     {

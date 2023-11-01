@@ -25,8 +25,8 @@ namespace DAL.Seeds
             new Unit()
             {
                 Id = 3,
-                NameEn = "Bag",
-                NameAr = "عبوة",
+                NameEn = "Packge",
+                NameAr = "لفة",
                 CreatorId = 1
             },
             new Unit()

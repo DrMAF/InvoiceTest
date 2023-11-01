@@ -1,11 +1,13 @@
-﻿using Core.ViewModels.Responses.Invoices;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MVCFrontend.Models;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text.Json;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Core.ViewModels.Invoices;
+using Core.ViewModels.Products;
 
 namespace MVCFrontend.Controllers
 {
@@ -36,8 +38,55 @@ namespace MVCFrontend.Controllers
             return View(invoices);
         }
 
-        public IActionResult CreateInvoice()
+        public async Task<IActionResult> CreateInvoice()
         {
+            var storeRespons = await _httpClient.GetAsync($"Stores/GetStores");
+
+            if (!storeRespons.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error CreateInvoice=> GetStores: {storeRespons.StatusCode}");
+            }
+
+            var stores = await storeRespons.Content.ReadFromJsonAsync<List<StoreVM>>();
+
+            var storesList = stores?.Select(store => new SelectListItem()
+            {
+                Text = store.StoreName,
+                Value = store.Id.ToString()
+            }).ToList();
+
+            storesList?.Insert(0, new SelectListItem()
+            {
+                Text = "--اختر--",
+                Value = "0"
+            });
+
+            ViewBag.StoresList = storesList;
+
+
+            var response = await _httpClient.GetAsync($"Products/GetProducts");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error CreateInvoice=> GetProducts: {response.StatusCode}");
+            }
+
+            var products = await response.Content.ReadFromJsonAsync<List<ProductVM>>();
+
+            var productsList = products?.Select(product => new SelectListItem()
+            {
+                Text = product.ProductName,
+                Value = product.Id.ToString()
+            }).ToList();
+
+            productsList?.Insert(0, new SelectListItem()
+            {
+                Text = "--اختر--",
+                Value = "0"
+            });
+
+            ViewBag.ProductsList = productsList;
+
             return View();
         }
 

@@ -4,10 +4,10 @@ using Core.Configurations;
 using Core.Domain;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
-using Core.ViewModels.Responses;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Core.ViewModels.Users;
 
 namespace BLL.Services
 {

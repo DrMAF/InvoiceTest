@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.ViewModels.Requests
+namespace Core.ViewModels.Users
 {
     public class Register
     {
@@ -23,7 +23,7 @@ namespace Core.ViewModels.Requests
         //public string Phone { get; set; }
         [Required]
         [MaxLength(50)]
-        public string UserName { get; set; }       
+        public string UserName { get; set; }
         [Required]
         [MaxLength(50)]
         public string Password { get; set; }

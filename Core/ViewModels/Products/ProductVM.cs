@@ -1,4 +1,4 @@
-﻿namespace Core.ViewModels.Responses.Products
+﻿namespace Core.ViewModels.Products
 {
     public class ProductVM
     {
