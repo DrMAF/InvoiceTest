@@ -35,7 +35,7 @@
                         <th style="width:150px">Quantity</th>
                         <th style="width:150px">Total</th>
                         <th style="width:150px">Discount</th>
-                        <th style="width:150px">Total</th>
+                        <th style="width:150px">Net</th>
 
                         <th></th>
                     </tr>
@@ -71,9 +71,9 @@
                             </select>
                         </td>
                         <td><input type="text" id="txtPrice" disabled /></td>
-                        <td><input type="text" id="txtQuantity" value="1" /></td>
+                        <td><input type="number" min="1" id="txtQuantity" value="1" /></td>
                         <td><input type="text" id="txtTotal" disabled /></td>
-                        <td><input type="text" id="txtDiscount" value="0" /></td>
+                        <td><input type="number" min="0" id="txtDiscount" value="0" /></td>
                         <td><input type="text" id="txtNet" disabled value="0" /></td>
 
                         <td><input type="button" id="btnAdd" value="Add" /></td>
@@ -81,10 +81,13 @@
                 </tfoot>
             </table>
 
+            <input type="text" id="txtFinalTotal" disabled />
+            <input type="number" min="0" id="txtTax" value="0" />
+            <input type="text" id="txtFinalNet" disabled />
+
+
             <div class="form-group">
                 <input type="button" class="btn btn-primary" id="btnSave" value="Save" />
-
-                @* <input type="submit" value="Create Invoice" class="btn btn-primary" /> *@
             </div>
 
         </form>
@@ -107,7 +110,7 @@
         var txtDiscount = $("#txtDiscount");
         var txtNet = $("#txtNet");
 
-        if (ddProduct.val() == "0" || ddProductUnit.val() == "0" || txtQuantity.val() == "") {
+        if (ddProduct.val() == "0" || ddProductUnit.val() == "0" || txtQuantity.val() == "" || txtQuantity.val() == "0") {
             alert("Data cannot be empty");
             return;
         }
@@ -157,6 +160,25 @@
         txtTotal.val("0");
         txtDiscount.val("0");
         txtNet.val("0");
+
+        UpdateFinalTotal();
+
+    });
+
+    var txtDiscount = document.getElementById("txtDiscount");
+    var txtQuantity = document.getElementById("txtQuantity");
+    var txtTax = document.getElementById("txtTax");
+
+    txtQuantity.addEventListener('input', (evt) => {
+        UpdateTotal();
+    });
+
+    txtDiscount.addEventListener('input', (evt) => {
+        UpdateTotal();
+    });
+
+    txtTax.addEventListener('input', (evt) => {
+        UpdateFinalTotal();
     });
 
     function ProductChanged(e) {
@@ -183,6 +205,8 @@
                     txtPrice.val(data[0].price);
 
                     productUnits = data;
+
+                    UpdateTotal();
                 }
             });
         }
@@ -197,6 +221,59 @@
 
         var txtPrice = $("#txtPrice");
         txtPrice.val(productUnits.find(x => x.id == productUnitId).price);
+
+        UpdateTotal();
+    }
+
+    function UpdateTotal() {
+        var txtPrice = $("#txtPrice");
+        var txtQuantity = $("#txtQuantity");
+        var txtDiscount = $("#txtDiscount");
+        var txtTotal = $("#txtTotal");
+        var txtNet = $("#txtNet");
+
+        var price = parseInt(txtPrice.val());
+        var quantity = parseInt(txtQuantity.val());
+        var discount = parseInt(txtDiscount.val());
+
+        var total = (price * quantity);
+        txtTotal.val(total);
+
+        var net = total - discount;
+        txtNet.val(net);
+    }
+
+    function UpdateFinalTotal() {
+        var txtFinalTotal = $("#txtFinalTotal");
+        var txtTax = $("#txtTax");
+        var txtFinalNet = $("#txtFinalNet");
+
+        var insertedRows = $("#tblItems TBODY TR");
+
+        if (insertedRows.length == 0) {
+            txtFinalTotal.val(0);
+        }
+
+        var finalTotal = 0;
+
+        insertedRows.each(function () {
+            var row = $(this);
+
+            var net = row.find("TD").eq(6).html();
+
+            finalTotal += parseInt(net);
+            txtFinalTotal.val(finalTotal);
+
+            var tax = 0;
+
+            if (txtTax.val() != "") {
+                tax = parseInt(txtTax.val());
+            }
+
+            var finalNet = finalTotal * (1 + (tax / 100));
+
+            txtFinalNet.val(finalNet);
+        });
     }
 
     function Remove(button) {
@@ -206,12 +283,36 @@
         if (confirm("Do you want to delete: " + product)) {
             var table = $("#tblItems")[0];
             table.deleteRow(row[0].rowIndex);
+
+            UpdateFinalTotal();
         }
     };
 
     $("body").on("click", "#btnSave", function () {
+
+        var storeId = $("#ddStore").val();
+        var date = $("#Date").val();
+        var tax = 0;
+
+        if (storeId == "" || storeId == "0" || date == "") {
+            alert("You must select date and store");
+            return;
+        }
+
+        if ($("#txtTax").val() != "") {
+            tax = $("#txtTax").val();
+        }
+
+        var insertedRows = $("#tblItems TBODY TR");
+
+        if (insertedRows.length == 0) {
+            alert("You must choose 1 product, at least");
+            return;
+        }
+
         var items = new Array();
-        $("#tblItems TBODY TR").each(function () {
+
+        insertedRows.each(function () {
             var row = $(this);
             var item = {};
 
@@ -223,10 +324,7 @@
             items.push(item);
         });
 
-        var storeId = $("#ddStore").val();
-        var date = $("#Date").val();
-
-        var invoice = { StoreId: storeId, Date: date, Items: items };
+        var invoice = { StoreId: storeId, Date: date, TaxPercent: tax, Items: items };
 
         //Send the JSON array to Controller using AJAX.
         $.ajax({
