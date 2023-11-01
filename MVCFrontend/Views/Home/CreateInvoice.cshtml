@@ -67,15 +67,14 @@
                             </select>
                         </td>
                         <td>
-                            <input type="hidden" id="hdnProductUnitId" />
                             <select class="form-control" id="ddProductUnit" onchange="ProductUnitChanged(this)">
                             </select>
                         </td>
                         <td><input type="text" id="txtPrice" disabled /></td>
-                        <td><input type="text" id="txtQuantity" /></td>
+                        <td><input type="text" id="txtQuantity" value="1" /></td>
                         <td><input type="text" id="txtTotal" disabled /></td>
-                        <td><input type="text" id="txtDiscount" /></td>
-                        <td><input type="text" id="txtNet" disabled /></td>
+                        <td><input type="text" id="txtDiscount" value="0" /></td>
+                        <td><input type="text" id="txtNet" disabled value="0" /></td>
 
                         <td><input type="button" id="btnAdd" value="Add" /></td>
                     </tr>
@@ -121,7 +120,8 @@
         cell.html($("#ddProduct option:selected").text());
 
         cell = $(row.insertCell(-1));
-        cell.html($("#ddProductUnit option:selected").text());
+        cell.html($("#ddProductUnit option:selected").text() + '<input type="hidden" id="hdnProductUnitId" value=' + ddProductUnit.val() + ' />');
+
 
         cell = $(row.insertCell(-1));
         cell.html(txtPrice.val());
@@ -152,11 +152,11 @@
         ddProduct.val("0");
         ddProductUnit.val("0");
         ddProductUnit.empty();
-        txtPrice.val("");
-        txtQuantity.val("");
-        txtTotal.val("");
-        txtDiscount.val("");
-        txtNet.val("");
+        txtPrice.val("0");
+        txtQuantity.val("1");
+        txtTotal.val("0");
+        txtDiscount.val("0");
+        txtNet.val("0");
     });
 
     function ProductChanged(e) {
@@ -169,7 +169,6 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     var ddProductUnit = $("#ddProductUnit");
                     ddProductUnit.empty();
 
@@ -216,7 +215,7 @@
             var row = $(this);
             var item = {};
 
-            item.ProductUnitId = row.find("TD").eq(1).find('input[type="hidden"]').val();
+            item.ProductUnitId = row.find('input[type="hidden"]').val();
             item.Price = row.find("TD").eq(2).html();
             item.Quantity = row.find("TD").eq(3).html();
             item.Discount = row.find("TD").eq(5).html();
