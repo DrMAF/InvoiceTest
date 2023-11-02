@@ -8,9 +8,11 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Core.ViewModels.Invoices;
 using Core.ViewModels.Products;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVCFrontend.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,7 +26,13 @@ namespace MVCFrontend.Controllers
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> InvoicesList()
         {
             var response = await _httpClient.GetAsync($"Invoices/GetInvoices");
 
@@ -93,15 +101,6 @@ namespace MVCFrontend.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateInvoice(InvoiceVM model)
         {
-            model = new InvoiceVM
-            {
-                StoreId = 1,
-                Date = DateTime.Now,
-                TaxPercent = 10,
-                Items = new List<InvoiceItemVM> { new InvoiceItemVM { ProductUnitId = 1, Price = 200, Quantity = 3, Discount = 3 } },
-                TotalDiscount = 20
-            };
-
             var modelJson = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, Application.Json);
 
             var response = await _httpClient.PostAsync($"Invoices/AddInvoice", modelJson);

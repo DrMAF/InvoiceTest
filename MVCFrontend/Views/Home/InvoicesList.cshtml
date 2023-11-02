@@ -1,0 +1,66 @@
+﻿@using Core.ViewModels.Invoices
+@model IEnumerable<InvoiceVM>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Compumedical test </h1>
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-sm">
+                <b>Id</b>
+            </div>
+            <div class="col-sm">
+                <b>StoreName</b>
+            </div>
+            <div class="col-sm">
+                <b>Date</b>
+            </div>
+            <div class="col-sm">
+                <b>Total</b>
+            </div>
+            <div class="col-sm">
+                <b>TotalDiscount</b>
+            </div>
+            <div class="col-sm">
+                <b>TaxPercent</b>
+            </div>
+            <div class="col-sm">
+                <b>Net</b>
+            </div>
+        </div>
+        @foreach (var invoice in Model)
+        {
+            <div class="row">
+                <div class="col-sm">
+                    @invoice.Id
+                </div>
+                <div class="col-sm">
+                    @invoice.StoreName
+                </div>
+                <div class="col-sm">
+                    @invoice.Date
+                </div>
+                <div class="col-sm">
+                    @invoice.Total
+                </div>
+                <div class="col-sm">
+                    @invoice.TotalDiscount
+                </div>
+                <div class="col-sm">
+                    @invoice.TaxPercent
+                </div>
+                <div class="col-sm">
+                    @invoice.Net
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+</div>
